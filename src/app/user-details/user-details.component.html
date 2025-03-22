@@ -1,0 +1,37 @@
+<ng-container>
+    <div class="container">
+      <div class="card-table">
+        <div class="card-product">
+          <table class="table table-responsive">
+            <thead>
+              <tr>
+                <th>Name</th>
+                <th>Username</th>
+                <th>Email</th>
+                <th>Address</th>
+                <th>Phone</th>
+                <th>Website</th>
+                <th>Company</th>
+  
+              </tr>
+            </thead>
+            <tbody>
+              <!-- @for (item of userDetails; track $index) { -->
+              <tr>
+                <td>{{ userDetails.name }}</td>
+                <td>{{ userDetails.username }}</td>
+                <td>{{ userDetails.email }}</td>
+                <td>{{ userDetails.address?.city }}</td>
+                <td>{{ userDetails.phone }}</td>
+                <td>{{ userDetails.website }}</td>
+                <td>{{ userDetails.company?.name }}</td>
+  
+              </tr>
+              <!-- } -->
+            </tbody>
+          </table>
+        </div>
+      </div>
+    </div>
+  </ng-container>
+  

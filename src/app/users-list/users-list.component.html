@@ -1,0 +1,36 @@
+<ng-container>
+  <div class="container">
+    <div class="card-table">
+      <div class="card-product">
+        <table class="table table-responsive">
+          <thead>
+            <tr>
+              <th>Name</th>
+              <!-- <th>Username</th>
+              <th>Email</th>
+              <th>Address</th>
+              <th>Phone</th>
+              <th>Website</th>
+              <th>Company</th> -->
+
+            </tr>
+          </thead>
+          <tbody>
+            @for (item of userList; track $index) {
+            <tr>
+              <td (click)="openDialog(item)">{{ item.name }}</td>
+              <!-- <td>{{ item.username }}</td>
+              <td>{{ item.email }}</td>
+              <td>{{ item.address?.city }}</td>
+              <td>{{ item.phone }}</td>
+              <td>{{ item.website }}</td>
+              <td>{{ item.company?.name }}</td> -->
+
+            </tr>
+            }
+          </tbody>
+        </table>
+      </div>
+    </div>
+  </div>
+</ng-container>
