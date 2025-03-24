@@ -1,1 +1,126 @@
-<p>add-edit-user works!</p>
+@if (data?.actionType!=='delete') {
+<mat-dialog-content>
+  <form #userForm="ngForm" (ngSubmit)="addUser()">
+    <div class="form-group">
+      <label for="firstName">Name : </label>
+      <input
+        type="text"
+        name="firstName"
+        class="form-control"
+        #firstName="ngModel"
+        firstName
+        required
+        pattern="[a-z A-z]+$"
+        [(ngModel)]="model.name"
+      />
+      <div *ngIf="firstName.touched">
+        <span style="color: red" *ngIf="firstName.errors?.['required']"
+          >Name is required</span
+        >
+        <span style="color: red" *ngIf="firstName.errors?.['pattern']"
+          >Name must be charactor only</span
+        >
+      </div>
+    </div>
+    <div class="form-group">
+      <label for="username">Username : </label>
+      <input
+        type="text"
+        name="username"
+        class="form-control"
+        #username="ngModel"
+        username
+        required
+        pattern="[a-z A-z]+$"
+        [(ngModel)]="model.username"
+      />
+      <div *ngIf="username.touched">
+        <span style="color: red" *ngIf="username.errors?.['required']"
+          >Username is required</span
+        >
+        <span style="color: red" *ngIf="username.errors?.['pattern']"
+          >Username must be charactor only</span
+        >
+      </div>
+    </div>
+    <div class="form-group">
+      <label for="phone">Phone : </label>
+      <input
+        type="text"
+        name="phone"
+        class="form-control"
+        #phone="ngModel"
+        phone
+        required
+        pattern="[0-9]{10}"
+        [(ngModel)]="model.phone"
+      />
+      <div *ngIf="phone.touched">
+        <span style="color: red" *ngIf="phone.errors?.['required']"
+          >Phone is required</span
+        >
+        <span style="color: red" *ngIf="phone.errors?.['pattern']"
+          >Please enter valid number</span
+        >
+      </div>
+    </div>
+    <div class="form-group">
+      <label for="email">Email : </label>
+      <input
+        type="text"
+        name="email"
+        class="form-control"
+        #email="ngModel"
+        email
+        required
+        [(ngModel)]="model.email"
+      />
+      <div *ngIf="email.touched">
+        <span style="color: red" *ngIf="email.errors?.['required']"
+          >Email is required</span
+        >
+      </div>
+    </div>
+    <mat-dialog-actions class="delete-buttons">
+      @if(data?.actionType!=='edit'){
+      <button
+        [disabled]="userForm.invalid"
+        type="submit"
+        mat-button
+        mat-dialog-close
+      >
+        Add User
+      </button>
+      }@else{
+      <button type="submit" mat-button mat-dialog-close>Edit User</button>
+      }
+
+      <button *ngIf="userForm.touched" type="reset" mat-button cdkFocusInitial>
+        Reset value
+      </button>
+    </mat-dialog-actions>
+  </form>
+</mat-dialog-content>
+
+}@else {
+<div class="text-container">
+  <div>
+    <h2 style="text-align: center" mat-dialog-title>Delete user</h2>
+    <mat-dialog-content>
+      Would you like to delete this user?
+    </mat-dialog-content>
+  </div>
+</div>
+
+<mat-dialog-actions class="delete-buttons">
+  <button mat-button mat-dialog-close>No</button>
+  <button
+    mat-button
+    mat-dialog-close
+    cdkFocusInitial
+    (click)="deleteUser(data?.userDetails?.id)"
+  >
+    Yes
+  </button>
+</mat-dialog-actions>
+}

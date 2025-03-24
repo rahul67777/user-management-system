@@ -1,37 +1,20 @@
-<ng-container>
-    <div class="container">
-      <div class="card-table">
-        <div class="card-product">
-          <table class="table table-responsive">
-            <thead>
-              <tr>
-                <th>Name</th>
-                <th>Username</th>
-                <th>Email</th>
-                <th>Address</th>
-                <th>Phone</th>
-                <th>Website</th>
-                <th>Company</th>
-  
-              </tr>
-            </thead>
-            <tbody>
-              <!-- @for (item of userDetails; track $index) { -->
-              <tr>
-                <td>{{ userDetails.name }}</td>
-                <td>{{ userDetails.username }}</td>
-                <td>{{ userDetails.email }}</td>
-                <td>{{ userDetails.address?.city }}</td>
-                <td>{{ userDetails.phone }}</td>
-                <td>{{ userDetails.website }}</td>
-                <td>{{ userDetails.company?.name }}</td>
-  
-              </tr>
-              <!-- } -->
-            </tbody>
-          </table>
-        </div>
-      </div>
-    </div>
-  </ng-container>
-  
+<h2 mat-dialog-title>Users Details</h2>
+<mat-dialog-content class="mat-typography">
+  <h3>Name</h3>
+  <p>{{ userDetails.name }}</p>
+  <h3>Username</h3>
+  <p>{{ userDetails?.username }}</p>
+  <h3>Email</h3>
+  <p>{{ userDetails.email }}</p>
+  <h3>Address</h3>
+  <p>{{ userDetails.address?.city }}</p>
+  <h3>Phone</h3>
+  <p>{{ userDetails.phone }}</p>
+  <h3>Website</h3>
+  <p>{{ userDetails.website }}</p>
+  <h3>Company</h3>
+  <p>{{ userDetails.company?.name }}</p>
+</mat-dialog-content>
+<mat-dialog-actions align="end">
+  <button mat-button mat-dialog-close>Close</button>
+</mat-dialog-actions>

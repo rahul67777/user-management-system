@@ -1,3 +1,26 @@
+<mat-toolbar style="width: 100%">
+  <span>User Management System</span>
+  <span class="example-spacer"></span>
+  <button
+    class="downLoad-button"
+    mat-button
+    (click)="openAddUserDialog('', '')"
+  >
+    Add User
+  </button>
+  <button class="downLoad-button" mat-button (click)="downloadCSV()">
+    Download
+  </button>
+  <mat-form-field class="example-form-field">
+    <mat-label>Search</mat-label>
+    <input matInput type="text" [(ngModel)]="value" />
+    @if (value) {
+    <button matSuffix mat-icon-button aria-label="Clear" (click)="value = ''">
+      <i class="bi bi-x"></i>
+    </button>
+    }
+  </mat-form-field>
+</mat-toolbar>
 <ng-container>
   <div class="container">
     <div class="card-table">
@@ -5,17 +28,58 @@
         <table class="table table-responsive">
           <thead>
             <tr>
-              <th>Users Name</th>
+              <th class="cursor-pointer" (click)="sortUsers('name')">
+                Name <i class="bi bi-arrow-down"></i>
+              </th>
+              <th class="cursor-pointer" (click)="sortUsers('username')">
+                Username <i class="bi bi-arrow-down"></i>
+              </th>
+              <th class="cursor-pointer" (click)="sortUsers('email')">
+                Email <i class="bi bi-arrow-down"></i>
+              </th>
+              <th>Address</th>
+              <th>Phone</th>
+              <th>Website</th>
+              <th>Company</th>
+              <th>Action</th>
             </tr>
           </thead>
           <tbody>
-            @for (item of userList; track $index) {
-            <tr>
-              <td (click)="openDialog(item)">{{ item.name }}</td>
+            @for (item of displayedUsers | filter:value :['name', 'email',
+            'company']; track $index) {
+            <tr
+              class="cursor-pointer"
+              (click)="type === 'delete' ? '' : openDialog(item)"
+            >
+              <td>{{ item.name }}</td>
+              <td>{{ item.username }}</td>
+              <td>{{ item.email }}</td>
+              <td>{{ item.address?.city }}</td>
+              <td>{{ item.phone }}</td>
+              <td>{{ item.website }}</td>
+              <td>{{ item.company?.name }}</td>
+              <td>
+                <span (click)="openAddUserDialog('delete', item)"
+                  ><i class="bi bi-trash"></i></span
+                ><span class="m-1" (click)="openAddUserDialog('edit', item)"
+                  ><i class="bi bi-pen"></i
+                ></span>
+              </td>
             </tr>
             }
           </tbody>
         </table>
+
+        <button mat-button (click)="prevPage()" [disabled]="currentPage === 1">
+          Previous
+        </button>
+        <button
+          mat-button
+          (click)="nextPage()"
+          [disabled]="currentPage * usersPerPage >= userList.length"
+        >
+          Next
+        </button>
       </div>
     </div>
   </div>
